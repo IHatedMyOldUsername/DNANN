@@ -1,18 +1,18 @@
+import numpy as np
+
 with open('output.txt') as inputFile:
     lineFile = inputFile.readlines()
 
 ct = 0
 balIn = np.array([])
+print(len(lineFile))
 for line in lineFile:
-    if(len(line)  36):
+    if(len(line)-1 != 36): #If the length is wrong, stop it!
         continue
     endArray = np.array([])
-    for char in line:
-        if(char == '\n'):
-            continue
+    for char in line.rstrip():
         endArray = np.append(endArray, int(char))
-    ct += 1
     balIn = np.append(balIn, endArray, axis = 0)
-    print(str(round(100-(ct/len(lineFile)), 3)) + '% left',end='\r')
 
 np.save('finalInput.npy', balIn)
+print(balIn)
