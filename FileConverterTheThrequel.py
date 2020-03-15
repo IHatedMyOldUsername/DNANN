@@ -4,15 +4,18 @@ with open('output.txt') as inputFile:
     lineFile = inputFile.readlines()
 
 ct = 0
-balIn = np.array([])
+balIn = []
 print(len(lineFile))
 for line in lineFile:
     if(len(line)-1 != 36): #If the length is wrong, stop it!
         continue
-    endArray = np.array([])
+    endList = list()
     for char in line.rstrip():
-        endArray = np.append(endArray, int(char))
-    balIn = np.append(balIn, endArray, axis = 0)
+        endList += [char]
+    balIn += [np.asarray(endList)]
+    ct+=1
+    if(ct >= 11842900):
+        continue
 
+finalOut = np.asarray(balIn)
 np.save('finalInput.npy', balIn)
-print(balIn)
